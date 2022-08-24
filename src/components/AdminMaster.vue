@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
-      <UserHeader v-if="!['AdminLogin'].includes($route.name)" />
-      <SideBar v-if="!['AdminLogin'].includes($route.name)" />
+      <UserHeader v-if="!['Login', 'Register'].includes($route.name)" />
+      <SideBar v-if="!['Login', 'Register'].includes($route.name)" />
       <main role="main" class="main-content">
         <div class="container-fluid">
           <router-view></router-view>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import Auth from '../api/auth.js'
 import UserHeader from '../inc/UserHeader.vue'
 import SideBar from '../inc/SideBar.vue'
 
@@ -20,6 +20,14 @@ export default {
   components: {
     UserHeader,
     SideBar
+  },
+  data(){
+    return {
+      authenticatedUser: Auth.user
+    }
+  },
+  mounted(){
+    console.log(Auth.user)
   }
 }
 </script>

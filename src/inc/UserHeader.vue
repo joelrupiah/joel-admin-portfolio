@@ -1,5 +1,6 @@
 <template>
     <nav class="topnav navbar navbar-light">
+      <notifications group="master"/>
         <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
           <i class="fe fe-menu navbar-toggler-icon"></i>
         </button>
@@ -9,18 +10,12 @@
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="dark">
-              <i class="fe fe-sun fe-16"></i>
+              <p class="text-white text-bold">{{user.name}}</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-shortcut">
-              <span class="fe fe-grid fe-16"></span>
-            </a>
-          </li>
-          <li class="nav-item nav-notif">
-            <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
-              <span class="fe fe-bell fe-16"></span>
-              <span class="dot dot-md bg-success"></span>
+          <li class="nav-item" @click.prevent="logout">
+            <a class="nav-link text-muted my-2" href="#">
+              <strong style="color:red">Logout <i class="fe fe-log-out fe-4"></i></strong>
             </a>
           </li>
           <li class="nav-item dropdown">
@@ -40,7 +35,33 @@
 </template>
 
 <script>
+import Auth from '../api/auth.js'
+import Api from "../api/index.js"
 export default {
-        name: 'UserHeader'
+  name: 'UserHeader',
+  data(){
+    return {
+      user: Auth.user,
+      token: Auth.token
+    }
+  },
+  methods: {
+    logout(){
+      Api().post('logout', this.user, this.token)
+        .then(() => {
+          Auth.logout()
+        })
+        this.$notify({ type: "success", group: "master", title: "Logging out" })
+        let self = this
+          setTimeout(function(){
+            self.$router.push({path: '/login'})
+        }, 4000)
+        this.$notify({ type: "success", group: "master", title: "Logged out" })
+    }
+  },
+  mounted(){
+    console.log(this.user)
+  }
+    
 }
 </script>

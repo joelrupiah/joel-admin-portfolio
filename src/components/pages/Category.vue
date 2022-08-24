@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <notifications group="category"/>
     <div class="row justify-content-center">
       <div class="col-12">
         <h2 class="page-title">Categories table</h2>
@@ -28,7 +29,7 @@
                     >
                       <td>{{ index + 1 }}</td>
                       <td>{{ category.name }}</td>
-                      <td>{{ category.created_at }}</td>
+                      <td>{{ moment(category.created_at).format("ddd MMM DD, YYYY [at] HH:mm a") }}</td>
                       <td>
                         <span>
                           <el-button type="primary" size="small" @click.prevent="categoryEditModal(category)">Edit</el-button>
@@ -113,6 +114,7 @@
 
 <script>
 import Api from "../../api/index.js"
+import moment from "moment"
 export default {
   name: "Category",
   data() {
@@ -174,6 +176,7 @@ export default {
           this.loading = false
           this.getCategories()
           this.categoryModal = false
+          this.$notify({ type: "success", group: "category", title: "Category added" })
         })
     },
     updateCategory: async function(){
@@ -184,16 +187,18 @@ export default {
           this.form.id = ''
           this.form.name = ''
           this.editMode = false
+          this.$notify({ type: "success", group: "category", title: "Category updated" })
           this.getCategories()
           this.categoryModal = false
         })
     },
     deleteCategory: async function(){
       this.loading = true
-      Api().post("/admin/delete-category/" + this.categoryDeleteId)
+      Api().delete("/admin/delete-category/" + this.categoryDeleteId)
         .then(() => {
           this.deleteCategoryModal = false
           this.loading = false
+          this.$notify({ type: "success", group: "category", title: "Category deleted" })
           this.getCategories()
         })
     }
@@ -201,5 +206,11 @@ export default {
   mounted() {
     this.getCategories()
   },
+  computed:{
+    
+  },
+  created(){
+    this.moment = moment
+  }
 }
 </script>

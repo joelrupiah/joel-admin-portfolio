@@ -1,16 +1,18 @@
 import moment from "moment";
-import Vue from "vue";
+// import Vue from "vue";
 
-Vue.filter('time', (a) => {
+const filter = ('time', (a) => {
     return moment(a).format('MMM Do YYYY')
 })
 
-Vue.filter('subString', (content, length) => {
+const subString = ('subString', (content, length) => {
     return content.substring(0, length)
 })
 
-Vue.filter('capitalize', (value) => {
+const capitalize = ('capitalize', (value) => {
     if(!value) return ''
     value = value.toString()
     return value.charAt(0).toUpperCase() + value.slice(1) 
 })
+
+export default {filter, subString, capitalize}
