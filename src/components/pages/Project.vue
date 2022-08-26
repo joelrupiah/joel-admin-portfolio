@@ -28,7 +28,7 @@
                       :key="project.id"
                     >
                       <td>{{ index + 1 }}</td>
-                      <td>{{ project.name }}</td>
+                      <td>{{ project.title }}</td>
                       <td>{{ moment(project.created_at).format("ddd MMM DD, YYYY [at] HH:mm a") }}</td>
                       <td>
                         <span>
@@ -235,7 +235,15 @@ export default{
     projectEditModal(project){
       this.editMode = true
       this.form.id = project.id
-      this.form.title = project.name
+      this.form.title = project.title
+      this.form.category_id = project.category_id
+      this.form.client_id = project.client_id
+      this.form.website = project.website
+      this.form.github = project.github
+      this.form.date = project.date
+      this.form.description = project.description
+      this.form.imageOne = project.imageOne
+      this.form.imageTwo = project.imageTwo
       this.projectModal = true
     },
     projectDeleteModal(id){
