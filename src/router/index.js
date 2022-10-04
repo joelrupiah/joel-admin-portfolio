@@ -38,6 +38,30 @@ const router = createRouter({
       component: () => import('../components/pages/Project.vue'),
       meta: { requiresAuth: true }
     },
+    {
+      path: '/create-project',
+      name: 'CreateProject',
+      component: () => import('../components/pages/CreateProject.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/edit-project/:id',
+      name: 'EditProject',
+      component: () => import('../components/pages/EditProject.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/messages',
+      name: 'Messages',
+      component: () => import('../components/pages/Messages.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/reply-message/:id',
+      name: 'ReplyMessage',
+      component: () => import('../components/pages/ReplyMessage.vue'),
+      meta: { requiresAuth: true }
+    },
   ]
 })
 

@@ -41,6 +41,12 @@
                 <span class="ml-3 item-text">Projects</span>
               </RouterLink>
             </li>
+            <li class="nav-item w-100">
+              <RouterLink class="nav-link" to="/messages">
+                <i class="fe fe-tiled fe-16"></i>
+                <span class="ml-3 item-text">Messages</span>
+              </RouterLink>
+            </li>
           </ul>
         </nav>
       </aside>
